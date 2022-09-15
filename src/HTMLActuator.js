@@ -8,7 +8,6 @@ const HTMLActuator = () => {
 	
 	HTMLActuator.actuate = (grid, metadata) => {
 		window.requestAnimationFrame(() => {
-			console.log(tileContainer)
 			HTMLActuator.clearContainer(tileContainer)
 			
 			grid.cells.forEach((column) => {

@@ -79,6 +79,22 @@ const Grid = (_size, previousState) => {
 	Grid.insertTile = (tile) => {
 		Grid.cells[tile.x][tile.y] = tile
 	}
+	
+	Grid.cellContent = (cell) => {
+		if (Grid.withinBounds(cell)) {
+			return Grid.cells[cell.x][cell.y]
+		} else {
+			return null;
+		}
+	}
+	
+	Grid.withinBounds = (position) => {
+		return position.x >= 0 && position.x < Grid.size && position.y >= 0 && position.y < Grid.size
+	}
+	
+	Grid.removeTile = (tile) => {
+		Grid.cells[tile.x][tile.y] = null
+	}
 }
 
 export default Grid

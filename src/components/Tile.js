@@ -1,27 +1,29 @@
-const Tile = (position, val) => {
-	Tile.x = position.x
-	Tile.y = position.y
-	Tile.value = val || 2
+class Tile {
+	constructor(position, val) {
+		this.x = position.x
+		this.y = position.y
+		this.value = val || 2
+	}
 	
-	Tile.savePosition = () => {
-		Tile.previousPosition = {
-			x: Tile.x,
-			y: Tile.y
+	savePosition = () => {
+		this.previousPosition = {
+			x: this.x,
+			y: this.y
 		}
 	}
 	
-	Tile.updatePosition = (position) => {
-		setX(position.x)
-		setY(position.y)
+	updatePosition = (position) => {
+		this.x = position.x
+		this.y = position.y
 	}
 	
-	Tile.serialize = () => {
+	serialize = () => {
 		return {
 			position: {
-				x: x,
-				y: y
+				x: this.x,
+				y: this.y
 			},
-			value: value
+			value: this.value
 		}
 	}
 }
