@@ -76,6 +76,10 @@ const Grid = (_size, previousState) => {
 		return !!Grid.availableCells().length
 	}
 	
+	Grid.cellAvailable = (cell) => {
+		return !(!!(Grid.cellContent(cell)))
+	}
+	
 	Grid.insertTile = (tile) => {
 		Grid.cells[tile.x][tile.y] = tile
 	}

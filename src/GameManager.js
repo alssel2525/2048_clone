@@ -78,6 +78,7 @@ const GameManager = (_size, inputManager, actuator, storageManager) => {
 				if (tile) {
 					let positions = GameManager.findFarthestPosition(cell, vector)
 					let next = Grid.cellContent(positions.next)
+					console.log(positions, next)
 					
 					if (next && next.value === tile.value && !next.mergedFrom) {
 						let merged  = new Tile(positions.next, tile.value * 2)
@@ -152,7 +153,7 @@ const GameManager = (_size, inputManager, actuator, storageManager) => {
 		do {
 			previous = cell;
 			cell = {x: previous.x + vector.x, y: previous.y + vector.y}
-		} while (Grid.withinBounds(cell) && Grid.cellsAvailable(cell))
+		} while (Grid.withinBounds(cell) && Grid.cellAvailable(cell))
 		
 		return {
 			farthest: previous,

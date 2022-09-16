@@ -13,7 +13,7 @@ const HTMLActuator = () => {
 			grid.cells.forEach((column) => {
 				column.forEach((cell) => {
 					if (cell) {
-						addTile(cell);
+						HTMLActuator.addTile(cell);
 					}
 				})
 			})
@@ -26,7 +26,7 @@ const HTMLActuator = () => {
 		}
 	}
 	
-	const addTile = (tile) => {
+	HTMLActuator.addTile = (tile) => {
 		let wrapper = document.createElement("div")
 		let inner = document.createElement("div")
 		let position = tile.previousPosition || {x: tile.x, y: tile.y}
@@ -50,7 +50,7 @@ const HTMLActuator = () => {
 			wrapper.classList.add("tile-merged")
 			
 			tile.mergedFrom.forEach((merged) => {
-				addTile(merged)
+				HTMLActuator.addTile(merged)
 			})
 		} else {
 			wrapper.classList.add("tile-new")
