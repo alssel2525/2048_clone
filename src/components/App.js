@@ -4,6 +4,8 @@ import KeyboardInputManager from "../KeyboardInputManager";
 import HTMLActuator from "../HTMLActuator"
 import LocalStorageManager from "../LocalStorageManager";
 import "./App.css"
+import Container from "./Container";
+import Header from "./Header";
 
 const App = () => {
 	useEffect(() => {
@@ -12,16 +14,10 @@ const App = () => {
 	})
 	
 	return (
-		<div className={"container"}>
-			<div className={"game-container"}>
-				<div className={"grid-container"}>
-				
-				</div>
-				<div className={"tile-container"}>
-				
-				</div>
-			</div>
-		</div>
+		<>
+			<Header/>
+			<Container/>
+		</>
 	)
 }
 
