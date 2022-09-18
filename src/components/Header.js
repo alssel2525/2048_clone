@@ -1,12 +1,15 @@
 import React from "react"
+import {useSelector} from "react-redux";
 
 const Header = () => {
+	const score = useSelector((state) => state.score)
+	
 	return (
 		<header>
 			<div>
 				<h1 className="title">2048</h1>
 				<div className="scores-container">
-					<div className="score-container">0</div>
+					<div className="score-container">{score}</div>
 					<div className="best-container">0</div>
 				</div>
 			</div>

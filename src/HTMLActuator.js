@@ -1,9 +1,5 @@
 const HTMLActuator = () => {
 	const tileContainer = document.querySelector(".tile-container")
-	const scoreContainer = document.querySelector(".score-container")
-	const bestContainer = document.querySelector(".best-container")
-	const messageContainer = document.querySelector(".game-message")
-	
 	HTMLActuator.score = 0
 	
 	HTMLActuator.actuate = (grid, metadata) => {
@@ -63,34 +59,6 @@ const HTMLActuator = () => {
 	
 	const getPositionClass = (position) => {
 		return "tile-position-" + position.x + "-" + position.y;
-	}
-	
-	const updateScore = (sc) => {
-		clearContainer(scoreContainer)
-		
-		let difference = sc - score
-		setScore(score)
-		
-		scoreContainer.textContent = score.toString()
-		
-		if (difference > 0) {
-			let addition = document.createElement("div")
-			addition.classList.add("score-addition")
-			addition.textContent = "+" + difference
-			scoreContainer.appendChild(addition)
-		}
-	}
-	
-	const updateBestScore = (bestScore) => {
-		bestContainer.textContent = bestScore
-	}
-	
-	const message = (won) => {
-		let type = won ? "game-won" : "game-over"
-		let message = won ? "You win!" : "Game over!"
-		
-		messageContainer.classList.add(type)
-		messageContainer.getElementsByTagName("p")[0].textContent = message;
 	}
 }
 
