@@ -13,7 +13,7 @@ const cellsAvailable = (board) => {
 
 const initialState = {
 	size: 4,
-	board: new Array(4).fill(new Array(4).fill(null)),
+	board: new Array(4).fill(new Array(4).fill(0)),
 	score: 0,
 	won: false,
 	over: false,
@@ -26,7 +26,6 @@ const rootSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		updateScore: (state, action) => {
-			console.log(state.score, action.payload)
 			state.score = action.payload
 		},
 		addScore: (state, action) => {
@@ -53,6 +52,6 @@ const store = configureStore({
 	reducer: rootSlice.reducer,
 })
 
-export const {addRandomTile} = rootSlice.actions
+export const {updateScore, addScore, resetScore, updateBoard, addRandomTile} = rootSlice.actions
 
 export default store

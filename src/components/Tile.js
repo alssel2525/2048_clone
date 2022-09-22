@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 
 class Tile {
 	constructor(position, val) {
@@ -10,7 +10,7 @@ class Tile {
 	savePosition = () => {
 		this.previousPosition = {
 			x: this.x,
-			y: this.y
+			y: this.y,
 		}
 	}
 	
@@ -23,23 +23,22 @@ class Tile {
 		return {
 			position: {
 				x: this.x,
-				y: this.y
+				y: this.y,
 			},
-			value: this.value
+			value: this.value,
 		}
 	}
 }
 
-const TileComponent = (position, value) => {
-	const [pos, setPos] = useState(position)
+const TileComponent = ({x, y, value}) => {
+	const [_x, setX] = useState(x)
+	const [_y, setY] = useState(y)
 	const [val, setVal] = useState(value)
-	const [previousPosition, setPreviousPosition] = useState(null)
-	const tile = new Tile(position, value)
 	
 	return (
-		<div className={`tile tile-${tile.value} tile-position-${pos.x}-${pos.y} ${val > 2048 ? "tile-super" : ""}`}>
+		<div className={`ssssss tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}`}>
 			<div className={"tile-inner"}>
-				{tile.value}
+				{val}
 			</div>
 		</div>
 	)
