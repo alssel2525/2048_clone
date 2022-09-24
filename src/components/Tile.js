@@ -36,7 +36,7 @@ const TileComponent = ({x, y, value}) => {
 	const [val, setVal] = useState(value)
 	
 	return (
-		<div className={`ssssss tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}`}>
+		<div className={`tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}`}>
 			<div className={"tile-inner"}>
 				{val}
 			</div>
