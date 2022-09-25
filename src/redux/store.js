@@ -12,6 +12,7 @@ const cellsAvailable = (board) => {
 }
 
 const moveAction = (board, direction) => {
+	let scoreIncrease = 0;
 	let copy = [...board];
 	for (let r = 0; r < copy.length; r++) {
 		copy[r] = [...board[r]]
@@ -42,12 +43,10 @@ const moveAction = (board, direction) => {
 				} while (0 <= cell.x && cell.x < copy.length && 0 <= cell.y && cell.y < copy.length &&
 				copy[cell.y][cell.x] === 0)
 				
-				console.log("copy: " + JSON.stringify(copy))
-				console.log(cell, previous)
-				
 				if (copy[cell.y] && copy[cell.y][cell.x] && copy[cell.y][cell.x] === val) {
 					copy[cell.y][cell.x] = val * 2
 					copy[traversals.y[row]][traversals.x[column]] = 0
+					scoreIncrease += val * 2
 				} else {
 					copy[traversals.y[row]][traversals.x[column]] = 0
 					copy[previous.y][previous.x] = val
@@ -55,7 +54,7 @@ const moveAction = (board, direction) => {
 			}
 		}
 	}
-	return copy;
+	return [copy, scoreIncrease];
 }
 
 const initialState = {
@@ -85,9 +84,12 @@ const rootSlice = createSlice({
 			state.board = action.payload
 		},
 		moveTilesWithDirection: (state, action) => {
-			state.board = moveAction(state.board, action.payload)
+			state.previousState = state.serialize
+			const [board, score] = moveAction(state.board, action.payload)
+			state.board = board
+			state.score += score
 		},
-		addRandomTile: (state, action) => {
+		addRandomTile: (state) => {
 			let cA = cellsAvailable(state.board)
 			if (cA.length) {
 				let val = Math.random() < 0.9 ? 2 : 4;
