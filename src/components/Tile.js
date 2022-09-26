@@ -37,7 +37,7 @@ const TileComponent = ({x, y, value, isMerged, isNew}) => {
 	
 	return (
 		<div className={`tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}` +
-			`${isNew ? "tile-new" : ""}`}>
+			`${isNew ? "tile-new" : ""} ${isMerged ? "tile-merged" : ""}`}>
 			<div className={"tile-inner"}>
 				{val}
 			</div>

@@ -10,7 +10,7 @@ const GameContainer = () => {
 	const dispatch = useDispatch()
 	const board = useSelector(state => state.board)
 	const newTiles = useSelector(state => state.newTiles)
-	console.log(newTiles)
+	const mergedTiles = useSelector(state => state.mergedTiles)
 	
 	useEffect(() => {
 		dispatch(addRandomTile(2))
@@ -26,6 +26,9 @@ const GameContainer = () => {
 							return (val !== 0) ? (
 								<TileComponent x={ic} y={ir} value={val} key={nanoid()}
 									isNew={newTiles.findIndex((value) => {
+										return value[0] === ir && value[1] === ic
+									}) !== -1}
+									isMerged={mergedTiles.findIndex((value) => {
 										return value[0] === ir && value[1] === ic
 									}) !== -1}
 								/>) : null

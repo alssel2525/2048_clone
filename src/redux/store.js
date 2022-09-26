@@ -13,6 +13,7 @@ const cellsAvailable = (board) => {
 
 const moveAction = (board, direction) => {
 	let scoreIncrease = 0;
+	let mergedTiles = [];
 	let copy = [...board];
 	for (let r = 0; r < copy.length; r++) {
 		copy[r] = [...board[r]]
@@ -47,6 +48,7 @@ const moveAction = (board, direction) => {
 					copy[cell.y][cell.x] = val * 2
 					copy[traversals.y[row]][traversals.x[column]] = 0
 					scoreIncrease += val * 2
+					mergedTiles.push([cell.y, cell.x])
 				} else {
 					copy[traversals.y[row]][traversals.x[column]] = 0
 					copy[previous.y][previous.x] = val
@@ -54,7 +56,7 @@ const moveAction = (board, direction) => {
 			}
 		}
 	}
-	return [copy, scoreIncrease];
+	return [copy, scoreIncrease, mergedTiles];
 }
 
 const initialState = {
@@ -88,10 +90,11 @@ const rootSlice = createSlice({
 		},
 		moveTilesWithDirection: (state, action) => {
 			state.previousState = state.serialize
-			const [board, score] = moveAction(state.board, action.payload)
+			const [board, score, mergedTiles] = moveAction(state.board, action.payload)
 			state.board = board
 			state.score += score
 			if (state.score > state.bestScore) state.bestScore = state.score
+			state.mergedTiles = mergedTiles;
 		},
 		addRandomTile: (state, action) => {
 			let times = action?.payload || 1;
