@@ -61,6 +61,8 @@ const initialState = {
 	bestScore: 0,
 	size: 4,
 	board: new Array(4).fill(new Array(4).fill(0)),
+	newTiles: [],
+	mergedTiles: [],
 	score: 0,
 	won: false,
 	over: false,
@@ -91,12 +93,17 @@ const rootSlice = createSlice({
 			state.score += score
 			if (state.score > state.bestScore) state.bestScore = state.score
 		},
-		addRandomTile: (state) => {
-			let cA = cellsAvailable(state.board)
-			if (cA.length) {
-				let val = Math.random() < 0.9 ? 2 : 4;
-				let cell = cA[Math.floor(Math.random() * cA.length)]
-				state.board[cell[0]][cell[1]] = val
+		addRandomTile: (state, action) => {
+			let times = action?.payload || 1;
+			state.newTiles = []
+			while (times--) {
+				let cA = cellsAvailable(state.board)
+				if (cA.length) {
+					let val = Math.random() < 0.9 ? 2 : 4;
+					let cell = cA[Math.floor(Math.random() * cA.length)]
+					state.board[cell[0]][cell[1]] = val
+					state.newTiles.push([cell[0], cell[1]])
+				}
 			}
 		}
 	},

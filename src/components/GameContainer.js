@@ -9,11 +9,11 @@ import {nanoid} from "nanoid";
 const GameContainer = () => {
 	const dispatch = useDispatch()
 	const board = useSelector(state => state.board)
+	const newTiles = useSelector(state => state.newTiles)
+	console.log(newTiles)
 	
 	useEffect(() => {
-		for (let i = 0; i < 2; i++) {
-			dispatch(addRandomTile())
-		}
+		dispatch(addRandomTile(2))
 	}, [])
 	
 	return (
@@ -24,7 +24,11 @@ const GameContainer = () => {
 					board.map((row, ir) => {
 						return row.map((val, ic) => {
 							return (val !== 0) ? (
-								<TileComponent x={ic} y={ir} value={val} key={nanoid()}/>) : null
+								<TileComponent x={ic} y={ir} value={val} key={nanoid()}
+									isNew={newTiles.findIndex((value) => {
+										return value[0] === ir && value[1] === ic
+									}) !== -1}
+								/>) : null
 						})
 					})
 				}

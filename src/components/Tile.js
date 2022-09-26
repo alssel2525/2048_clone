@@ -30,13 +30,14 @@ class Tile {
 	}
 }
 
-const TileComponent = ({x, y, value}) => {
+const TileComponent = ({x, y, value, isMerged, isNew}) => {
 	const [_x, setX] = useState(x)
 	const [_y, setY] = useState(y)
 	const [val, setVal] = useState(value)
 	
 	return (
-		<div className={`tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}`}>
+		<div className={`tile tile-${val} tile-position-${_x}-${_y} ${val > 2048 ? "tile-super" : ""}` +
+			`${isNew ? "tile-new" : ""}`}>
 			<div className={"tile-inner"}>
 				{val}
 			</div>
