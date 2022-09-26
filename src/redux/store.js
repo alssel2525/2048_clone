@@ -58,6 +58,7 @@ const moveAction = (board, direction) => {
 }
 
 const initialState = {
+	bestScore: 0,
 	size: 4,
 	board: new Array(4).fill(new Array(4).fill(0)),
 	score: 0,
@@ -88,6 +89,7 @@ const rootSlice = createSlice({
 			const [board, score] = moveAction(state.board, action.payload)
 			state.board = board
 			state.score += score
+			if (state.score > state.bestScore) state.bestScore = state.score
 		},
 		addRandomTile: (state) => {
 			let cA = cellsAvailable(state.board)

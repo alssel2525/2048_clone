@@ -4,6 +4,7 @@ import {nanoid} from "nanoid";
 
 const Header = () => {
 	const score = useSelector(state => state.score)
+	const bestScore = useSelector(state => state.bestScore)
 	const [beforeIncrease, setBeforeIncrease] = useState(score)
 	const [increase, setIncrease] = useState(0);
 	
@@ -21,7 +22,7 @@ const Header = () => {
 						{score}
 						{increase !== 0 ? <div className={"score-increase"} key={nanoid()}>+{increase}</div> : null}
 					</div>
-					<div className="best-container">0</div>
+					<div className="best-container">{bestScore}</div>
 				</div>
 			</div>
 			<div className="above-game">
