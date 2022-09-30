@@ -6,12 +6,11 @@ const TileComponent = ({x, y, value, isMerged, isNew, previousPosition}) => {
 	const [val, setVal] = useState(value)
 	const [positionClass, setPositionClass] = useState(
 		previousPosition ?
-			`tile-position-${previousPosition[3]}-${previousPosition[2]}` :
+			`tile-position-${previousPosition[0]}-${previousPosition[1]}` :
 			`tile-position-${_x}-${_y}`,
 	)
 	
 	useEffect(() => {
-		console.log(previousPosition, x, y, val)
 		setPositionClass(`tile-position-${_x}-${_y}`)
 	}, [])
 	

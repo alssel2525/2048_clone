@@ -15,6 +15,7 @@ const moveAction = (board, direction) => {
 	let scoreIncrease = 0;
 	let mergedTiles = [];
 	let previousPositions = [];
+	let removedTiles = [];
 	let copy = [...board];
 	for (let r = 0; r < copy.length; r++) {
 		copy[r] = [...board[r]]
@@ -50,16 +51,17 @@ const moveAction = (board, direction) => {
 					copy[traversals.y[row]][traversals.x[column]] = 0
 					scoreIncrease += val * 2
 					mergedTiles.push([cell.y, cell.x])
-					previousPositions.push([cell.y, cell.x, traversals.y[row], traversals.x[column]])
+					removedTiles.push([traversals.x[column], traversals.y[row], cell.x, cell.y, val])
 				} else {
 					copy[traversals.y[row]][traversals.x[column]] = 0
 					copy[previous.y][previous.x] = val
-					previousPositions.push([previous.y, previous.x, traversals.y[row], traversals.x[column]])
+					previousPositions.push([traversals.x[column], traversals.y[row], previous.x, previous.y])
 				}
 			}
 		}
 	}
-	return [copy, scoreIncrease, mergedTiles, previousPositions];
+	console.log(previousPositions)
+	return [copy, scoreIncrease, mergedTiles, previousPositions, removedTiles];
 }
 
 const initialState = {
@@ -68,7 +70,8 @@ const initialState = {
 	board: new Array(4).fill(new Array(4).fill(0)),
 	newTiles: [],
 	mergedTiles: [],
-	previousPositions: new Array(4).fill(new Array(4).fill(0)),
+	removedTiles: [], // x, y, x, y, val
+	previousPositions: [],
 	score: 0,
 	won: false,
 	over: false,
@@ -93,12 +96,13 @@ const rootSlice = createSlice({
 			state.board = action.payload
 		},
 		moveTilesWithDirection: (state, action) => {
-			const [board, score, mergedTiles, previousPositions] = moveAction(state.board, action.payload)
+			const [board, score, mergedTiles, previousPositions, removedTiles] = moveAction(state.board, action.payload)
 			state.board = board
 			state.score += score
 			if (state.score > state.bestScore) state.bestScore = state.score
 			state.mergedTiles = mergedTiles;
 			state.previousPositions = previousPositions;
+			state.removedTiles = removedTiles;
 		},
 		addRandomTile: (state, action) => {
 			let times = action?.payload || 1;

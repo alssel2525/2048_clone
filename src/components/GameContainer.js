@@ -12,6 +12,7 @@ const GameContainer = () => {
 	const newTiles = useSelector(state => state.newTiles)
 	const mergedTiles = useSelector(state => state.mergedTiles)
 	const previousPositions = useSelector(state => state.previousPositions)
+	const removedTiles = useSelector(state => state.removedTiles)
 	
 	useEffect(() => {
 		dispatch(addRandomTile(2))
@@ -21,6 +22,13 @@ const GameContainer = () => {
 		<div id={"game-container"}>
 			<GridContainer/>
 			<div className={"tile-container"}>
+				{
+					removedTiles.map(val => {
+						return (<TileComponent x={val[2]} y={val[3]} value={val[4]} key={nanoid()}
+							previousPosition={val.slice(0, 4)}
+						/>)
+					})
+				}
 				{
 					board.map((row, ir) => {
 						return row.map((val, ic) => {
@@ -33,7 +41,7 @@ const GameContainer = () => {
 										return value[0] === ir && value[1] === ic
 									}) !== -1}
 									previousPosition={previousPositions[previousPositions.findIndex((value) => {
-										return value[0] === ir && value[1] === ic
+										return value[2] === ic && value[3] === ir
 									})]}
 								/>)
 							}
