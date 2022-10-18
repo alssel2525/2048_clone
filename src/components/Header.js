@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
+import {newGame} from "../redux/store";
 
 const Header = () => {
+	const dispatch = useDispatch()
 	const score = useSelector(state => state.score)
 	const bestScore = useSelector(state => state.bestScore)
 	const [beforeIncrease, setBeforeIncrease] = useState(score)
@@ -13,6 +15,11 @@ const Header = () => {
 		setBeforeIncrease(score);
 	}, [score])
 	
+	// new game onclick event
+	const dispatchNewGame = () => {
+		dispatch(newGame());
+	}
+	
 	return (
 		<header>
 			<div>
@@ -20,14 +27,14 @@ const Header = () => {
 				<div className="scores-container">
 					<div className="score-container">
 						{score}
-						{increase !== 0 ? <div className={"score-increase"} key={nanoid()}>+{increase}</div> : null}
+						{increase > 0 ? <div className={"score-increase"} key={nanoid()}>+{increase}</div> : null}
 					</div>
 					<div className="best-container">{bestScore}</div>
 				</div>
 			</div>
 			<div className="above-game">
 				<p className="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-				<a className="restart-button">New Game</a>
+				<a className="restart-button" onClick={dispatchNewGame}>New Game</a>
 			</div>
 		</header>
 	)

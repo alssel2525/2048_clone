@@ -116,6 +116,18 @@ const rootSlice = createSlice({
 					state.newTiles.push([cell[0], cell[1]])
 				}
 			}
+		},
+		newGame: (state) => {
+			state.board = new Array(4).fill(new Array(4).fill(0))
+			state.score = 0
+			state.won = false
+			state.over = false
+			state.keepPlaying = false
+			state.previousState = null
+			state.newTiles = []
+			state.mergedTiles = []
+			state.removedTiles = []
+			state.previousPositions = []
 		}
 	},
 })
@@ -124,6 +136,6 @@ const store = configureStore({
 	reducer: rootSlice.reducer,
 })
 
-export const {updateScore, addScore, resetScore, updateBoard, moveTilesWithDirection, addRandomTile} = rootSlice.actions
+export const {updateScore, addScore, resetScore, updateBoard, moveTilesWithDirection, addRandomTile, newGame} = rootSlice.actions
 
 export default store
