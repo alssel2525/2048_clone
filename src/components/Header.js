@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
-import {addRandomTile, newGame} from "../redux/store";
+import {addRandomTile, newGame, saveToStorage} from "../redux/store";
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -19,6 +19,7 @@ const Header = () => {
 	const dispatchNewGame = () => {
 		dispatch(newGame());
 		dispatch(addRandomTile(2));
+		dispatch(saveToStorage());
 	}
 	
 	return (

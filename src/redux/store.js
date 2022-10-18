@@ -1,4 +1,5 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
+import LocalStorage from "../LocalStorage";
 
 const cellsAvailable = (board) => {
 	let cells = [];
@@ -60,7 +61,6 @@ const moveAction = (board, direction) => {
 			}
 		}
 	}
-	console.log(previousPositions)
 	return [copy, scoreIncrease, mergedTiles, previousPositions, removedTiles];
 }
 
@@ -128,6 +128,19 @@ const rootSlice = createSlice({
 			state.mergedTiles = []
 			state.removedTiles = []
 			state.previousPositions = []
+		},
+		saveToStorage: (state) => {
+			let localStorage = new LocalStorage()
+			localStorage.setGameState(state)
+		},
+		getFromStorage: (state) => {
+			let localStorage = new LocalStorage()
+			let data = localStorage.getGameState()
+			if (data) {
+				for (let key in data) {
+					state[key] = data[key]
+				}
+			}
 		}
 	},
 })
@@ -136,6 +149,16 @@ const store = configureStore({
 	reducer: rootSlice.reducer,
 })
 
-export const {updateScore, addScore, resetScore, updateBoard, moveTilesWithDirection, addRandomTile, newGame} = rootSlice.actions
+export const {
+	updateScore,
+	addScore,
+	resetScore,
+	updateBoard,
+	moveTilesWithDirection,
+	addRandomTile,
+	newGame,
+	saveToStorage,
+	getFromStorage,
+} = rootSlice.actions
 
 export default store

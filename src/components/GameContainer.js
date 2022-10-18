@@ -1,9 +1,10 @@
 import React, {useEffect} from "react";
 import GridContainer from "./GridContainer";
 import {useDispatch, useSelector} from "react-redux";
-import {addRandomTile} from "../redux/store";
+import {addRandomTile, getFromStorage} from "../redux/store";
 import TileComponent from "./Tile";
 import {nanoid} from "nanoid";
+import LocalStorage from "../LocalStorage";
 
 
 const GameContainer = () => {
@@ -15,7 +16,12 @@ const GameContainer = () => {
 	const removedTiles = useSelector(state => state.removedTiles)
 	
 	useEffect(() => {
-		dispatch(addRandomTile(2))
+		let localStorage = new LocalStorage();
+		if (localStorage.getGameState()) {
+			dispatch(getFromStorage())
+		} else {
+			dispatch(addRandomTile(2));
+		}
 	}, [])
 	
 	return (

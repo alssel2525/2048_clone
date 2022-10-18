@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import GameContainer from "./GameContainer";
 import {useDispatch} from "react-redux";
-import store, {addRandomTile, moveTilesWithDirection} from "../redux/store";
+import store, {addRandomTile, moveTilesWithDirection, saveToStorage} from "../redux/store";
 
 const canMerge = (board) => {
 	let tile;
@@ -52,6 +52,7 @@ const Container = () => {
 			e.preventDefault();
 			dispatch(moveTilesWithDirection(KeydownMap[e.key]))
 			dispatch(addRandomTile())
+			dispatch(saveToStorage())
 			if (!canMerge(rootStore.getState().board) && !hasEmpty(rootStore.getState().board)) {
 				console.log("End!!!")
 			}
