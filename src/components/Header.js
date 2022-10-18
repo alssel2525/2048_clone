@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
-import {newGame} from "../redux/store";
+import {addRandomTile, newGame} from "../redux/store";
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -18,6 +18,7 @@ const Header = () => {
 	// new game onclick event
 	const dispatchNewGame = () => {
 		dispatch(newGame());
+		dispatch(addRandomTile(2));
 	}
 	
 	return (
