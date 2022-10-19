@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from "react";
 
+class Tile {
+	constructor(x, y, value) {
+		this.x = x;
+		this.y = y;
+		this.value = value;
+	}
+}
+
 const TileComponent = ({x, y, value, isMerged, isNew, previousPosition}) => {
 	const [_x, setX] = useState(x)
 	const [_y, setY] = useState(y)

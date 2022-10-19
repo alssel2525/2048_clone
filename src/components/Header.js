@@ -34,7 +34,7 @@ const Header = () => {
 					<div className="best-container">{bestScore}</div>
 				</div>
 			</div>
-			<div className="above-game">
+			<div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
 				<p className="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
 				<a className="restart-button" onClick={dispatchNewGame}>New Game</a>
 			</div>

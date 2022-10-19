@@ -83,18 +83,6 @@ const rootSlice = createSlice({
 	name: "root",
 	initialState: initialState,
 	reducers: {
-		updateScore: (state, action) => {
-			state.score = action.payload
-		},
-		addScore: (state, action) => {
-			state.score += action.payload
-		},
-		resetScore: (state) => {
-			state.score = 0
-		},
-		updateBoard: (state, action) => {
-			state.board = action.payload
-		},
 		moveTilesWithDirection: (state, action) => {
 			const [board, score, mergedTiles, previousPositions, removedTiles] = moveAction(state.board, action.payload)
 			state.board = board

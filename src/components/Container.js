@@ -64,9 +64,7 @@ const Container = () => {
 	})
 	
 	return (
-		<div className={"container"}>
-			<GameContainer/>
-		</div>
+		<GameContainer/>
 	)
 };
 
