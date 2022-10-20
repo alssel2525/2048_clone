@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css"
-import Container from "./Container";
 import Header from "./Header";
+import GameContainer from "./GameContainer";
 
 const App = () => {
 	return (
 		<>
 			<Header/>
-			<Container/>
+			<GameContainer/>
 		</>
 	)
 }

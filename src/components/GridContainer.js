@@ -1,20 +1,44 @@
 import React from "react";
+import styled from "styled-components";
 
-const GridContainer = () => {
+const GridRow = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 15px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+`
+
+const GridCell = styled.div`
+	width: calc((500px - 15px * (${props => props.size} + 1)) / ${props => props.size});
+	height: calc((500px - 15px * (${props => props.size} + 1)) / ${props => props.size});
+	position: relative;
+	margin-right: 15px;
+	border-radius: 3px;
+	background: #eee4da55;
+	
+	&:last-child {
+		margin-right: 0;
+	}
+`
+
+const GridContainer = ({size}) => {
 	return (
-		<div className={"grid-container"}>
+		<div style={{position: "absolute"}}>
 			{
-				[...Array(4)].map((row, ir) => {
+				[...Array(size)].map((row, ir) => {
 					return (
-						<div className={"grid-row"} key={ir}>
+						<GridRow key={ir}>
 							{
-								[...Array(4)].map((cell, ic) => {
+								[...Array(size)].map((cell, ic) => {
 									return (
-										<div className={"grid-cell"} key={ic}></div>
+										<GridCell size={size} key={ic}/>
 									)
 								})
 							}
-						</div>
+						</GridRow>
 					)
 				})
 			}
