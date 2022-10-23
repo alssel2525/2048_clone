@@ -1,104 +1,8 @@
 body {
-	width: 500px;
-	margin: 80px auto;
+	margin: 0;
 	padding: 0;
 
 	background: #faf8ef;
-	color: #776e65;
-
-	font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-}
-
-header {
-	display: flex;
-	flex-direction: column;
-}
-
-h1 {
-	font-size: 80px;
-	font-weight: 700;
-	margin: 0;
-	display: block;
-	float: left;
-}
-
-.scores-container {
-	display: flex;
-	flex-direction: row;
-	float: right;
-}
-.scores-container * + * {
-	margin-left: 5px;
-}
-.score-container, .best-container {
-	display: block;
-	height: 25px;
-
-	position: relative;
-	background: #bbada0;
-	padding: 15px 25px;
-	font-size: 25px;
-	line-height: calc(25px + 22px);
-	font-weight: bold;
-	border-radius: 3px;
-	color: white;
-	margin-top: 8px;
-	text-align: center;
-}
-.score-container:after, .best-container:after {
-	position: absolute;
-	width: 100%;
-	top: 10px;
-	left: 0;
-	text-transform: uppercase;
-	font-size: 13px;
-	line-height: 13px;
-	text-align: center;
-	color: #eee4da;
-}
-.score-container:after {
-	content: "Score";
-}
-.best-container:after {
-	content: "Best";
-}
-@keyframes move-up {
-	0% {
-		top: 25px;
-		opacity: 1;
-	}
-	100% {
-		top: -50px;
-		opacity: 0;
-	}
-}
-.score-increase {
-	position: absolute;
-	right: 30px;
-	font-size: 20px;
-	line-height: 20px;
-	font-weight: bold;
-	color: rgba(119, 110, 101, 0.9);
-	z-index: 100;
-	animation: move-up 600ms ease-in forwards;
-}
-
-a {
-	color: #776e65;
-	font-weight: bold;
-	text-decoration: underline;
-	cursor: pointer;
-}
-a.restart-button {
-	width: fit-content;
-	display: block;
-	background: #998a80;
-	border-radius: 3px;
-	padding: 0 20px;
-	text-decoration: none;
-	color: #f9f6f2;
-	height: 40px;
-	line-height: 42px;
 }
 
 .container {
@@ -117,16 +21,4 @@ a.restart-button {
 	width: 500px;
 	height: 500px;
 	box-sizing: border-box;
-}
-
-.tile-container {
-	position: absolute;
-	z-index: 2;
-}
-
-.tile {
-	position: absolute;
-	width: calc((500px - 15px * (4 + 1)) / 4);
-	height: calc((500px - 15px * (4 + 1)) / 4);
-	line-height: calc((500px - 15px * (4 + 1)) / 4);
 }

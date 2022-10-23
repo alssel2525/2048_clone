@@ -1,7 +1,108 @@
 import React, {useEffect, useState} from "react"
+import styled, {keyframes} from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 import {addRandomTile, newGame, saveToStorage} from "../redux/store";
+
+const StyledHeader = styled.header`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
+	> div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
+	h1 {
+		font-size: 5rem;
+		font-weight: 700;
+		margin: 0;
+		display: block;
+	}
+	
+	button {
+		width: fit-content;
+		height: 3rem;
+		line-height: 3rem;
+		display: block;
+		font-weight: 700;
+		font-size: 1rem;
+		cursor: pointer;
+		border: none;
+		
+		background: #998a80;
+		border-radius: 3px;
+		padding: 0 20px;
+		text-decoration: none;
+		color: #f9f6f2;
+	}
+`
+
+const ScoreContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	
+	> div {
+		height: 25px;
+		display: block;
+		background: #bbada0;
+		position: relative;
+		padding: 15px 25px;
+		font-size: 1.5rem;
+		line-height: calc(1.5rem + 22px);
+		border-radius: 3px;
+		color: #ffffff;
+		margin-top: 10px;
+		text-align: center;
+		font-weight: 700;
+		
+		&::after {
+			position: absolute;
+			width: 100%;
+			top: 10px;
+			left: 0;
+			text-transform: uppercase;
+			font-size: 0.8rem;
+			line-height: 0.8rem;
+			text-align: center;
+			color: #eee4da;
+		}
+		
+		&:first-child::after {
+			content: "Score";
+		}
+		&:last-child::after {
+			content: "Best";
+		}
+	}
+`
+
+const moveUp = keyframes`
+	0% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-2rem);
+		opacity: 0;
+	}
+`
+
+const ScoreIncrease = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	font-size: 1.2rem;
+	line-height: 1.2rem;
+	font-weight: 700;
+	color: #776e65e5;
+	z-index: 100;
+	animation: ${moveUp} 0.4s ease-in forwards;
+`
 
 const Header = () => {
 	const dispatch = useDispatch()
@@ -23,22 +124,22 @@ const Header = () => {
 	}
 	
 	return (
-		<header>
+		<StyledHeader>
 			<div>
-				<h1 className="title">2048</h1>
-				<div className="scores-container">
-					<div className="score-container">
+				<h1>2048</h1>
+				<ScoreContainer>
+					<div>
 						{score}
-						{increase > 0 ? <div className={"score-increase"} key={nanoid()}>+{increase}</div> : null}
+						{increase > 0 && <ScoreIncrease key={nanoid()}>+{increase}</ScoreIncrease>}
 					</div>
-					<div className="best-container">{bestScore}</div>
-				</div>
+					<div>{bestScore}</div>
+				</ScoreContainer>
 			</div>
-			<div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-				<p className="game-intro">Join the numbers and get to the <strong>2048 tile!</strong></p>
-				<a className="restart-button" onClick={dispatchNewGame}>New Game</a>
+			<div>
+				<p>Join the numbers and get to the <strong>2048 tile!</strong></p>
+				<button onClick={dispatchNewGame}>New Game</button>
 			</div>
-		</header>
+		</StyledHeader>
 	)
 }
 
