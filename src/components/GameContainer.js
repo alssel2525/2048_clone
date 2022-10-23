@@ -1,9 +1,22 @@
 import React, {useEffect} from "react";
+import styled from "styled-components";
 import GridContainer from "./GridContainer";
 import {useDispatch} from "react-redux";
 import store, {addRandomTile, getFromStorage, moveTilesWithDirection, saveToStorage} from "../redux/store";
 import LocalStorage from "../LocalStorage";
 import TileContainer from "./TileContainer";
+
+const StyledGameContainer = styled.div`
+	width: 500px;
+	height: 500px;
+	margin-top: 40px;
+	padding: 15px;
+	
+	position: relative;
+	background: #bbada0;
+	border: 6px;
+	box-sizing: border-box;
+`
 
 const canMerge = (board) => {
 	let tile;
@@ -77,10 +90,10 @@ const GameContainer = () => {
 	}, [])
 	
 	return (
-		<div id={"game-container"}>
+		<StyledGameContainer>
 			<GridContainer size={4}/>
 			<TileContainer/>
-		</div>
+		</StyledGameContainer>
 	)
 }
 
