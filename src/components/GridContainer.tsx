@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {stateType} from "../redux/store";
 
 const GridRow = styled.div`
 	position: relative;
@@ -24,7 +26,9 @@ const GridCell = styled.div`
 	}
 `
 
-const GridContainer = ({size} : {size: number}): React.ReactElement => {
+const GridContainer = (): React.ReactElement => {
+	const size = useSelector((state: stateType) => state.size)
+
 	return (
 		<div style={{position: "absolute"}}>
 			{

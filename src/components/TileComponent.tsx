@@ -1,6 +1,8 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import styled, {css, keyframes} from "styled-components";
+import {useSelector} from "react-redux";
+import {stateType} from "../redux/store";
 
 type tilePropsType = {
 	x: number,
@@ -109,6 +111,7 @@ const TileComponent = (props: tilePropsType): React.ReactElement => {
 	const {x, y, value, isNew, isMerged, previousPosition} = props;
 	const [_x, setX] = useState(previousPosition ? previousPosition[0] : x);
 	const [_y, setY] = useState(previousPosition ? previousPosition[1] : y);
+	const size = useSelector((state: stateType) => state.size);
 
 	useEffect(() => {
 		setX(x)
@@ -116,7 +119,7 @@ const TileComponent = (props: tilePropsType): React.ReactElement => {
 	}, [])
 
 	return (
-		<StyledTile size={4} x={_x} y={_y} value={value} isNew={isNew} isMerged={isMerged} previousPosition={previousPosition}>
+		<StyledTile size={size} x={_x} y={_y} value={value} isNew={isNew} isMerged={isMerged} previousPosition={previousPosition}>
 			<div>{value}</div>
 		</StyledTile>
 	)

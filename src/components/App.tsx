@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import GameContainer from "./GameContainer";
+import SizeSelector from "./SizeSelector";
 
 const StyledContainer = styled.div`
 	width: 500px;
@@ -17,6 +18,7 @@ const App = (): React.ReactElement => {
 	return (
 		<StyledContainer>
 			<Header/>
+			<SizeSelector/>
 			<GameContainer/>
 		</StyledContainer>
 	)

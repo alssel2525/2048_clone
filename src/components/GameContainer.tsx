@@ -12,7 +12,7 @@ const StyledGameContainer = styled.div`
 	height: 500px;
 	margin-top: 40px;
 	padding: 15px;
-	
+
 	position: relative;
 	background: #bbada0;
 	border: 6px;
@@ -80,8 +80,7 @@ const GameContainer = (): React.ReactElement => {
 		let localStorage = new LocalStorage();
 		if (localStorage.getGameState()) {
 			dispatch(getFromStorage())
-		}
-		else {
+		} else {
 			dispatch(addRandomTile(2));
 		}
 
@@ -93,7 +92,7 @@ const GameContainer = (): React.ReactElement => {
 
 	return (
 		<StyledGameContainer>
-			<GridContainer size={4}/>
+			<GridContainer/>
 			<TileContainer/>
 		</StyledGameContainer>
 	)

@@ -121,7 +121,7 @@ const rootSlice = createSlice({
 			}
 		},
 		newGame: (state) => {
-			state.board = new Array(4).fill(new Array(4).fill(0))
+			state.board = new Array(state.size).fill(new Array(state.size).fill(0))
 			state.score = 0
 			state.won = false
 			state.over = false
@@ -144,6 +144,14 @@ const rootSlice = createSlice({
 					state[key] = data[key]
 				}
 			}
+		},
+		/**
+		 * need to dispatch newGame action after this
+		 * @param state
+		 * @param action {payload: {size: number}}
+		 */
+		changeSize: (state, action) => {
+			state.size = action.payload
 		}
 	},
 })
@@ -158,6 +166,7 @@ export const {
 	newGame,
 	saveToStorage,
 	getFromStorage,
+	changeSize,
 } = rootSlice.actions
 
 export {stateType}
