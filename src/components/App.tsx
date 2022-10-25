@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import GameContainer from "./GameContainer";
@@ -13,7 +13,7 @@ const StyledContainer = styled.div`
 	font-family: Arial, sans-serif;
 `
 
-const App = () => {
+const App = (): React.ReactElement => {
 	return (
 		<StyledContainer>
 			<Header/>

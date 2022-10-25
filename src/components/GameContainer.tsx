@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+import * as React from "react";
+import {useEffect} from "react";
 import styled from "styled-components";
 import GridContainer from "./GridContainer";
 import {useDispatch} from "react-redux";
@@ -18,9 +19,9 @@ const StyledGameContainer = styled.div`
 	box-sizing: border-box;
 `
 
-const canMerge = (board) => {
+const canMerge = (board: number[][]): boolean => {
 	let tile;
-	
+
 	for (let row = 0; row < board.length; row++) {
 		for (let col = 0; col < board.length; col++) {
 			tile = board[row][col]
@@ -32,7 +33,7 @@ const canMerge = (board) => {
 					}
 					let cell = {x: col + vector.x, y: row + vector.y}
 					if (cell.x < 0 || cell.x >= board.length || cell.y < 0 || cell.y >= board.length) continue
-					
+
 					let other = board[cell.y][cell.x]
 					if (other && other === tile) return true
 				}
@@ -42,7 +43,7 @@ const canMerge = (board) => {
 	return false
 }
 
-const hasEmpty = (board) => {
+const hasEmpty = (board: number[][]): boolean => {
 	for (let row = 0; row < board.length; row++) {
 		for (let col = 0; col < board.length; col++) {
 			if (board[row][col] === 0) return true
@@ -58,15 +59,15 @@ const KeydownMap = {
 	"ArrowLeft": 3,
 }
 
-const GameContainer = () => {
+const GameContainer = (): React.ReactElement => {
 	const dispatch = useDispatch()
 	const rootStore = store;
-	
+
 	const KeydownEventListener = (e) => {
 		if (KeydownMap[e.key] !== undefined) {
 			e.preventDefault();
 			dispatch(moveTilesWithDirection(KeydownMap[e.key]))
-			dispatch(addRandomTile())
+			dispatch(addRandomTile(1))
 			dispatch(saveToStorage())
 			if (!canMerge(rootStore.getState().board) && !hasEmpty(rootStore.getState().board)) {
 				alert("Game Over")
@@ -74,11 +75,7 @@ const GameContainer = () => {
 			}
 		}
 	}
-	
-	useEffect(() => {
-		window.addEventListener("keydown", e => KeydownEventListener(e))
-	})
-	
+
 	useEffect(() => {
 		let localStorage = new LocalStorage();
 		if (localStorage.getGameState()) {
@@ -87,8 +84,13 @@ const GameContainer = () => {
 		else {
 			dispatch(addRandomTile(2));
 		}
+
+		window.addEventListener("keydown", e => KeydownEventListener(e))
+		return () => {
+			window.removeEventListener("keydown", e => KeydownEventListener(e))
+		}
 	}, [])
-	
+
 	return (
 		<StyledGameContainer>
 			<GridContainer size={4}/>

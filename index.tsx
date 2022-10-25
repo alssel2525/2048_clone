@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 `
 
-const container = document.getElementById("root")
+const container: HTMLElement = document.getElementById("root")
 const root = createRoot(container)
 root.render(
 	<Provider store={store}>

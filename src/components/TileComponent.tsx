@@ -1,7 +1,18 @@
-import React, {useEffect, useState} from "react";
+import * as React from "react";
+import {useEffect, useState} from "react";
 import styled, {css, keyframes} from "styled-components";
 
-const cssMap = {
+type tilePropsType = {
+	x: number,
+	y: number,
+	value: number,
+	size?: number,
+	isNew?: boolean,
+	isMerged?: boolean,
+	previousPosition?: [number, number, number, number]
+}
+
+const cssMap: {[key: number|string]: [string, string]} = {
 	/* color, background-color */
 	2: ["#776e65", "#eee4da"],
 	4: ["#776e65", "#eee1c9"],
@@ -17,11 +28,11 @@ const cssMap = {
 	super: ["#f9f6f2", "#3c3a32"],
 }
 
-const translateTile = (props) => {
-	return `translate(${(getTileSize(props) + 15) * props.x}px, ${(getTileSize(props) + 15) * props.y}px);`
+const translateTile = (props: tilePropsType): string => {
+	return `translate(${(getTileSize(props.size) + 15) * props.x}px, ${(getTileSize(props.size) + 15) * props.y}px);`
 }
 
-const pop = (props) => keyframes`
+const pop = (props: tilePropsType) => keyframes`
 	0% {
 		transform: scale(0) ${translateTile(props)};
 	}
@@ -33,7 +44,7 @@ const pop = (props) => keyframes`
 	}
 `
 
-const appear = (props) => keyframes`
+const appear = (props: tilePropsType) => keyframes`
 	0% {
 		opacity: 0;
 		transform: scale(0) ${translateTile(props)};
@@ -44,12 +55,12 @@ const appear = (props) => keyframes`
 	}
 `
 
-const getTileSize = (props) => {
+const getTileSize = (size: number): number => {
 	/* [{500 - 15 * (size + 1)} / size + 15] * (x|y) */
-	return (500 - 15 * (props.size + 1)) / (props.size);
+	return (500 - 15 * (size + 1)) / size;
 }
 
-const tileAnimation = (props) => {
+const tileAnimation = (props: tilePropsType) => {
 	if (props.isNew) {
 		return css`
 			transform: ${translateTile(props)};
@@ -69,9 +80,9 @@ const tileAnimation = (props) => {
 
 const StyledTile = styled.div`
 	position: absolute;
-	width: ${props => getTileSize(props)}px;
-	height: ${props => getTileSize(props)}px;
-	line-height: ${props => getTileSize(props)}px;
+	width: ${props => getTileSize(props.size)}px;
+	height: ${props => getTileSize(props.size)}px;
+	line-height: ${props => getTileSize(props.size)}px;
 	color: ${props => cssMap[props.value] ? cssMap[props.value][0] : cssMap["super"]};
 	background: ${props => cssMap[props.value] ? cssMap[props.value][1] : cssMap["super"]};
 	border-radius: 3px;
@@ -81,7 +92,7 @@ const StyledTile = styled.div`
 	z-index: 10;
 	
 	transition: 0.1s ease-out transform, 0.1s linear opacity, 0.1s linear scale;
-	transform-origin: ${props => (getTileSize(props) + 15) * props.x + getTileSize(props) / 2}px ${props => (getTileSize(props) + 15) * props.y + props.size / 2 + getTileSize(props) / 2}px;
+	transform-origin: ${props => (getTileSize(props.size) + 15) * props.x + getTileSize(props.size) / 2}px ${props => (getTileSize(props.size) + 15) * props.y + props.size / 2 + getTileSize(props.size) / 2}px;
 	${props => tileAnimation(props)}
 	
 	& div {
@@ -94,17 +105,18 @@ const StyledTile = styled.div`
 	}
 `
 
-const TileComponent = ({x, y, value, isMerged, isNew, previousPosition}) => {
+const TileComponent = (props: tilePropsType): React.ReactElement => {
+	const {x, y, value, isNew, isMerged, previousPosition} = props;
 	const [_x, setX] = useState(previousPosition ? previousPosition[0] : x);
 	const [_y, setY] = useState(previousPosition ? previousPosition[1] : y);
-	
+
 	useEffect(() => {
 		setX(x)
 		setY(y)
 	}, [])
-	
+
 	return (
-		<StyledTile size={4} x={_x} y={_y} value={value} isNew={isNew} isMerged={isMerged}>
+		<StyledTile size={4} x={_x} y={_y} value={value} isNew={isNew} isMerged={isMerged} previousPosition={previousPosition}>
 			<div>{value}</div>
 		</StyledTile>
 	)

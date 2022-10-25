@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
 const GridRow = styled.div`
@@ -24,7 +24,7 @@ const GridCell = styled.div`
 	}
 `
 
-const GridContainer = ({size}) => {
+const GridContainer = ({size} : {size: number}): React.ReactElement => {
 	return (
 		<div style={{position: "absolute"}}>
 			{

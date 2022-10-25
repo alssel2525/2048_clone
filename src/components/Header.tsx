@@ -1,8 +1,14 @@
-import React, {useEffect, useState} from "react"
+import * as React from "react";
+import {useEffect, useState} from "react";
 import styled, {keyframes} from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 import {addRandomTile, newGame, saveToStorage} from "../redux/store";
+
+type stateType = {
+	score: number,
+	bestScore: number
+}
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -104,25 +110,25 @@ const ScoreIncrease = styled.div`
 	animation: ${moveUp} 0.4s ease-in forwards;
 `
 
-const Header = () => {
+const Header = (): React.ReactElement => {
 	const dispatch = useDispatch()
-	const score = useSelector(state => state.score)
-	const bestScore = useSelector(state => state.bestScore)
+	const score: number = useSelector((state: stateType) => state.score)
+	const bestScore: number = useSelector((state: stateType) => state.bestScore)
 	const [beforeIncrease, setBeforeIncrease] = useState(score)
 	const [increase, setIncrease] = useState(0);
-	
+
 	useEffect(() => {
 		setIncrease(score - beforeIncrease);
 		setBeforeIncrease(score);
 	}, [score])
-	
+
 	// new game onclick event
 	const dispatchNewGame = () => {
 		dispatch(newGame());
 		dispatch(addRandomTile(2));
 		dispatch(saveToStorage());
 	}
-	
+
 	return (
 		<StyledHeader>
 			<div>

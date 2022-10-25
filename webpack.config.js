@@ -4,6 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 module.exports = {
 	mode: "development",
 	entry: "./index.tsx",
+	resolve: {
+		extensions: [".ts", ".tsx", ".js", ".jsx"],
+	},
 	output: {
 		path: __dirname + "/dist",
 		filename: "bundle.[hash].js"
