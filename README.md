@@ -6,4 +6,8 @@
 ![React Redux](https://img.shields.io/badge/React_Redux-764ABC?style=flat-square&logo=Redux&logoColor=white)
 ![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-222222?style=flat-square&logo=GitHub-Pages&logoColor=white)
 
-[여기서 확인하세요](https://github.com/alssel2525/2048_clone)
+React 기반 2048 클론 프로젝트입니다. [여기서 확인하세요](https://alssel2525.github.io/2048_clone/)
+
+## 이미지
+
+![Screenshot](./Screenshot.png)
