@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
 	padding: 0;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: space-between;
 	
 	button {
 		width: 100px;

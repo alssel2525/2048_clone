@@ -20,7 +20,7 @@ const Footer = (): React.ReactElement => {
 	return (
 		<StyledFooter>
 			<p>This is a project reconstructing the original 2048 game with a React.</p>
-			<p>You can see the source code of this project <a target={"_blank"}><span>Here</span></a>.</p>
+			<p>You can see the source code of this project <a href={"https://github.com/alssel2525/2048_clone"} target={"_blank"}><span>Here</span></a>.</p>
 			<p><a href={"https://play2048.co/"} target={"_blank"}><span>Original 2048 game</span></a> is created by <a href={`http://gabrielecirulli.com/`} target={"_blank"}><span>Gabriele Cirulli</span></a>.</p>
 		</StyledFooter>
 	)
